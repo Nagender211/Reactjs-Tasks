@@ -11,7 +11,7 @@ const ProductSortHeader = (props) => {
         <div>
             <h1>All product's</h1>
             <h4>sort By</h4>
-            <select value={activeOption} onChange={onSortrChange}>
+            <select value={activeOption} onChange={ onSortrChange}>
                 {
                     sortOption.map(option=>(
                         <option key={option.optionId} value={option.optionId}><p>{option.displayText}</p></option>
