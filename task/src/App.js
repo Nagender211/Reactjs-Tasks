@@ -736,8 +736,8 @@ class App extends Component{
           {/* <PraticeAuthinticationtwo /> */}
           {/* <Registration /> */}
           {/* <GithubPopularRepos /> */}
-          {/* <ProductsFiltersGroup /> */}
-          <SearchState />
+          <ProductsFiltersGroup />
+          {/* <SearchState /> */}
           {/* <div>
           <ul>
 

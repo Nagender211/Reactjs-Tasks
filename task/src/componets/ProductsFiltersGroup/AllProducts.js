@@ -62,17 +62,18 @@ class AllProducts extends Component{
         productsList: [],
         actvieOption: sortOption[0].optionsId,
         activeCategory: categoryOptions[0].categoryId,
-        activeRating: rataing[2].ratingId
+        activeRating: rataing[2].ratingId,
+        searchText: ''
 
     }
     componentDidMount(){
         this.getApiData();
     }
     getApiData=async()=>{
-        const {activeCategory,activeRating,actvieOption}=this.state
+        const {activeCategory,activeRating,actvieOption,searchText}=this.state
         const jwtToken=Cookies.get('jwt-token');
 
-        const ulr=`https://apis.ccbp.in/products?sortBy=${actvieOption}&category=${activeCategory}&title_search=&rating=${activeRating}`
+        const ulr=`https://apis.ccbp.in/products?sortBy=${actvieOption}&category=${activeCategory}&title_search=${searchText}&rating=${activeRating}`
         const options={
             
             headers: {
@@ -101,15 +102,23 @@ class AllProducts extends Component{
     updateSortProducts=(actvieOption,activeCategory,activeRating)=>{
         this.setState({actvieOption,activeCategory,activeRating},this.getApiData)
     }
-    
+    onhanddle=(e)=>{
+        console.log(e.target.value)
+        this.setState({
+            searchText: e.target.value,
+        },this.getApiData)
+        
+    }
     render() {
         const {productsList}=this.state;
         const {actvieOption,activeCategory,activeRating}=this.state
+
 
       return (
         <div>
             <Header />
 
+            <input type='text' placeholder='please enter text....' onChange={this.onhanddle} />
             <SortedProducts 
             sortOption={sortOption}
             categoryOptions={categoryOptions} 
