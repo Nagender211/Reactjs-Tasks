@@ -98,6 +98,12 @@ class Product extends Component {
     updateSortProducts = (actvieOption, activeCategory, activeRating) => {
         this.setState({ actvieOption, activeCategory, activeRating }, this.getApiData);
     };
+    updateId=(id)=>{
+        console.log(id);
+        // this.setState({ productId: id });
+        // this.getProductDetails(id);
+
+    }
 
     render() {
         const { productList, activeCategory, activeRating, actvieOption } = this.state;
@@ -114,7 +120,7 @@ class Product extends Component {
                     updateSortProducts={this.updateSortProducts}
                 />
                 {productList.map((product) => (
-                    <AllProducts key={product.id} product={product} />
+                    <AllProducts key={product.id} product={product} updateId={this.updateId}/>
                 ))}
             </div>
         );
