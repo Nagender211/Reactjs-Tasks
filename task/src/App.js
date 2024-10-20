@@ -89,6 +89,8 @@ import PraticeAuthinticationtwo from './componets/PracticeAuthinticatcationtwo/P
 import EventRegistraion from './componets/EventRigister/EventRegistraion';
 import GithubPopularRepos from './componets/GithubPopularRepos/GithubPopularRepos';
 import SearchState from './componets/SearchState/SearchState';
+
+import PrdoductPratice_2 from './componets/ProductsFillterDeatils/PrdoductPratice_2';
 // import ReusableBanners from './componets/Reusable Banners/ReusableBanners';
 // import UserProfile from './componets/UserProfile/UserProfile';
 
@@ -736,8 +738,9 @@ class App extends Component{
           {/* <PraticeAuthinticationtwo /> */}
           {/* <Registration /> */}
           {/* <GithubPopularRepos /> */}
-          <ProductsFiltersGroup />
+          {/* <ProductsFiltersGroup /> */}
           {/* <SearchState /> */}
+          <PrdoductPratice_2 />
           {/* <div>
           <ul>
 
