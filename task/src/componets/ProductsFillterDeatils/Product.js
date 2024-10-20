@@ -1,121 +1,124 @@
-import React, { Component } from 'react'
-import Header from './Header'
-import AllProducts from './AllProducts'
-import Cookies from 'js-cookie'
-import SortPrdodut from './SortPrdodut'
+import React, { Component } from 'react';
+import Header from './Header';
+import AllProducts from './AllProducts';
+import Cookies from 'js-cookie';
+import SortPrdodut from './SortPrdodut';
 
-const sortOption=[
+const sortOption = [
     {
         optionsId: 1,
-        displayNnmae: 'PRICE_HIGH'
+        displayNnmae: 'PRICE_HIGH',
     },
     {
         optionsId: 2,
-        displayNnmae: 'PRICE_LOW'
-    }
-]
+        displayNnmae: 'PRICE_LOW',
+    },
+];
 
-const categoryOptions=[
+const categoryOptions = [
     {
-        categoryId:	1,
-    	name: 'Clothing'
+        categoryId: 1,
+        name: 'Clothing',
     },
     {
-        categoryId:    2,
-        name: 'Electronics'
+        categoryId: 2,
+        name: 'Electronics',
     },
     {
         categoryId: 3,
-        name: 'Appliances'
+        name: 'Appliances',
     },
     {
         categoryId: 4,
-        name: 'Grocey'
+        name: 'Grocey',
     },
     {
         categoryId: 5,
-        name: 'Toys'
-    }
-]
+        name: 'Toys',
+    },
+];
 
-const rataing=[
+const rataing = [
     {
         ratingId: 1,
-        imageUrl: '1'
+        imageUrl: '1',
     },
     {
         ratingId: 2,
-        imageUrl: '2'
+        imageUrl: '2',
     },
     {
         ratingId: 3,
-        imageUrl: '3'
+        imageUrl: '3',
     },
     {
         ratingId: 4,
-        imageUrl: '4'
+        imageUrl: '4',
     },
-    
-]
+];
 
-class Product extends Component{
-    state={
+class Product extends Component {
+    state = {
         productList: [],
         actvieOption: sortOption[0].optionsId,
         activeCategory: categoryOptions[0].categoryId,
         searchText: '',
-        activeRating: rataing[2].ratingId
+        activeRating: rataing[2].ratingId,
+    };
 
-    }
-    componentDidMount(){
+    componentDidMount() {
         this.getApiData();
     }
-    getApiData=async()=>{
-        const jwtToken=Cookies.get('jwt-token');
-        const ulr=`https://apis.ccbp.in/products?sortBy=${actvieOption}&category=${activeCategory}&title_search=${searchText}&rating=${activeRating}`
-        const options={
+
+    getApiData = async () => {
+        const { actvieOption, activeCategory, searchText, activeRating } = this.state;
+        const jwtToken = Cookies.get('jwt-token');
+        const url = `https://apis.ccbp.in/products?sortBy=${actvieOption}&category=${activeCategory}&title_search=${searchText}&rating=${activeRating}`;
+        const options = {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
             },
             method: 'GET',
-        }
-        const response=await fetch(ulr,options);
-        if(response.ok===true){
-            const data=await response.json();
-            const update=data.products.map(product=>({
+        };
+        const response = await fetch(url, options);
+        if (response.ok === true) {
+            const data = await response.json();
+            const update = data.products.map((product) => ({
                 brand: product.brand,
                 id: product.id,
                 imageUrl: product.image_url,
                 price: product.price,
                 rating: product.rating,
-                title: product.title
-            }))
-            this.setState({productList: update})
+                title: product.title,
+            }));
+            this.setState({ productList: update });
         }
-    }
-    updateSortProducts=(actvieOption,activeCategory,activeRating)=>{
-        this.setState({actvieOption,activeCategory,activeRating},this.getApiData)
-    }
+    };
+
+    updateSortProducts = (actvieOption, activeCategory, activeRating) => {
+        this.setState({ actvieOption, activeCategory, activeRating }, this.getApiData);
+    };
+
     render() {
-        const {productList}=this.state;
-        const {activeCategory,activeRating,actvieOption}=this.state
-      return (
-        <div>
-            <Header />
-            <SortPrdodut 
-            sortOption={sortOption} 
-            categoryOptions={categoryOptions}
-            rataing={rataing}
-            activeCategory={activeCategory}
-            activeRating={activeRating}
-            actvieOption={actvieOption}
-            updateSortProducts={this.updateSortProducts} />
-          {productList.map(product=>(
-            <AllProducts key={product.id} product={product} />
-          ))}
-        </div>
-      )
+        const { productList, activeCategory, activeRating, actvieOption } = this.state;
+        return (
+            <div>
+                <Header />
+                <SortPrdodut
+                    sortOption={sortOption}
+                    categoryOptions={categoryOptions}
+                    rataing={rataing}
+                    activeCategory={activeCategory}
+                    activeRating={activeRating}
+                    actvieOption={actvieOption}
+                    updateSortProducts={this.updateSortProducts}
+                />
+                {productList.map((product) => (
+                    <AllProducts key={product.id} product={product} />
+                ))}
+            </div>
+        );
     }
 }
 
-export default Product
+export default Product;
