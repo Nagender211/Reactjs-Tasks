@@ -19,9 +19,17 @@ const sendForm=async(req,res)=>{
 }
 
 const home=(req,res)=>{
-    res.status(200).json({
-        UserData
-    })
+    try {
+        const user=new UserData.find();
+        res.status(200).json({
+            message: "this are the data ",
+            data:user
+        })
+        
+    } catch (error) {
+        res.status(500).json({error:error.message})
+        
+    }
 }
 
 module.exports={
