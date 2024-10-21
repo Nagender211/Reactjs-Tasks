@@ -10,7 +10,7 @@ const sendForm=async(req,res)=>{
         res.status(201).json({
             message: "registeation succesfulyy add!!"
         })
-        console.log(UserData)
+        
     } catch (error) {
         res.status(500).json({error:error.message})
         
@@ -19,7 +19,9 @@ const sendForm=async(req,res)=>{
 }
 
 const home=(req,res)=>{
-    res.send("this is the home page nagender")
+    res.status(200).json({
+        UserData
+    })
 }
 
 module.exports={
