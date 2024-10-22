@@ -10,17 +10,27 @@ const sendForm=async(req,res)=>{
         res.status(201).json({
             message: "registeation succesfulyy add!!"
         })
-        
     } catch (error) {
         res.status(500).json({error:error.message})
         
     }
 
 }
-
-const home=(req,res)=>{
+const updateForm=async(req,res)=>{
+    const {_id,firstName,lastName,email,time,date,phone}=req.body;
     try {
-        const user=new UserData.find();
+        await UserData.findByIdAndUpdate({_id,firstName,lastName,email,time,date,phone})
+        res.status(201).json({
+            message: "form is update succefully"
+        })
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+}
+
+const home=async(req,res)=>{
+    try {
+        const user=await UserData.find();
         res.status(200).json({
             message: "this are the data ",
             data:user
@@ -34,6 +44,7 @@ const home=(req,res)=>{
 
 module.exports={
     sendForm,
-    home
+    home,
+    updateForm
  
 }

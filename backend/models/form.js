@@ -32,6 +32,11 @@ const mongooseSchema=new mongoose.Schema({
         required: true,
         minlength: [11,"please enter the 11 numbers digits"],
         maxlength: [11,"the phone number is not more than the 11 digits"]
+    },
+    id: {
+        type: String,
+        required: true,
+        unique: true
     }
 
 })
