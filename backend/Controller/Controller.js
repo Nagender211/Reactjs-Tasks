@@ -17,11 +17,20 @@ const sendForm=async(req,res)=>{
 
 }
 const updateForm=async(req,res)=>{
-    const {_id,firstName,lastName,email,time,date,phone}=req.body;
+    const {firstName,lastName,email,time,date,phone}=req.body;
+    const { id }=req.params;
+    if(!id){
+        return res.status(400).json({error:"id is required"})
+    }
+
     try {
-        await UserData.findByIdAndUpdate({_id,firstName,lastName,email,time,date,phone})
+        const user=await UserData.findByIdAndUpdate(id,{firstName,lastName,email,time,date,phone},{new:true,runValidators: true})
+        if(!user){
+            return res.status(404).json({error:"user not found"})
+        }
         res.status(201).json({
-            message: "form is update succefully"
+            message: "The form is updateed succesfly",
+            data:user
         })
     } catch (error) {
         res.status(500).json({error: error.message})
